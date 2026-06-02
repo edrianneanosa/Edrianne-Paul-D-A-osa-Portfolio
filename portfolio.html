@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modern Portfolio</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins', sans-serif;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#0f172a;
+      color:white;
+    }
+
+    a{
+      text-decoration:none;
+      color:white;
+    }
+
+    /* NAVBAR */
+    nav{
+      width:100%;
+      padding:10px 10%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:fixed;
+      top:0;
+      left:0;
+      background:rgba(15,23,42,0.9);
+      backdrop-filter:blur(10px);
+      z-index:1000;
+    }
+
+    .logo{
+      font-size:30px;
+      font-weight:700;
+      color:#38bdf8;
+    }
+
+    nav ul{
+      display:flex;
+      gap:30px;
+      list-style:none;
+    }
+
+    nav ul li a{
+      transition:0.3s;
+    }
+
+    nav ul li a:hover{
+      color:#ebf0f3;
+    }
+
+    /* HERO */
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:10px 10%;
+      gap:300px;
+      flex-wrap:wrap;
+    }
+
+    .hero-text{
+      flex:1;
+    }
+
+    .hero-text h3{
+      font-size:20px;
+      color:#cbd5e1;
+    }
+
+    .hero-text h1{
+      font-size:70px;
+      line-height:1.1;
+      margin:10px 0;
+    }
+
+    .hero-text span{
+      color:#38bdf8;
+    }
+
+    .hero-text p{
+      color:#cbd5e1;
+      margin:20px 0;
+      line-height:1.8;
+      max-width:600px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:14px 35px;
+      background:#38bdf8;
+      border-radius:40px;
+      color:#0f172a;
+      font-weight:600;
+      transition:0.3s;
+    }
+
+    .btn:hover{
+      transform:translateY(-5px);
+      box-shadow:0 10px 20px rgba(56,189,248,0.4);
+    }
+
+    .hero-image{
+      flex:1;
+      text-align:center;
+    }
+
+    .hero-image img{
+      width:350px;
+      border-radius:30px;
+      border:5px solid #38bdf8;
+      box-shadow:0 10px 40px rgba(0,0,0,0.5);
+    }
+
+    /* ABOUT */
+    .about{
+      padding:100px 10%;
+      display:flex;
+      gap:60px;
+      align-items:center;
+      flex-wrap:wrap;
+      background:#111827;
+    }
+
+    .about img{
+      width:320px;
+      border-radius:20px;
+    }
+
+    .about-text{
+      flex:1;
+    }
+
+    .title{
+      font-size:45px;
+      margin-bottom:10px;
+    }
+
+    .title span{
+      color:#22c55e;
+    }
+
+    .about-text p{
+      line-height:1.9;
+      color:#cbd5e1;
+    }
+
+    /* SERVICES ACCORDION DESIGN */
+    .services{
+      padding:100px 10%;
+      text-align:center;
+    }
+
+    .services-subtitle {
+      display: block;
+      color: #94a3b8;
+      font-size: 16px;
+      max-width: 600px;
+      margin: 0 auto 50px auto;
+      line-height: 1.6;
+    }
+
+    .accordion-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .accordion-item {
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 12px;
+      text-align: left;
+      overflow: hidden;
+    }
+
+    .accordion-header {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 22px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      color: white;
+      font-size: 20px;
+      font-weight: 500;
+      text-align: left;
+      outline: none;
+    }
+
+    .accordion-icon {
+      transition: transform 0.3s ease;
+      color: #22c55e;
+      display: flex;
+      align-items: center;
+    }
+
+    .accordion-item.active .accordion-icon {
+      transform: rotate(180deg);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .accordion-body {
+      padding: 0 30px 25px 30px;
+    }
+
+    .accordion-body p {
+      color: #a1a1aa;
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag {
+      background: rgba(34, 197, 94, 0.1);
+      color: #22c55e;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* WORK CAROUSEL CARDS SECTION */
+    .work {
+      padding: 100px 0;
+      background: #111827;
+      text-align: center;
+      position: relative;
+    }
+
+    .work-subtitle {
+      display: block;
+      color: #94a3b8;
+      font-size: 15px;
+      margin: 10px auto 40px auto;
+    }
+
+    /* Main Slider viewport */
+    .carousel-slider {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      padding: 0 60px;
+      overflow: hidden;
+    }
+
+    .carousel-track-container {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 30px;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    /* Work Card Elements */
+    .work-card {
+      min-width: calc(50% - 15px); /* Shows 2 cards nicely side-by-side */
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 24px;
+      padding: 24px;
+      text-align: left;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    }
+
+    .work-card-img-wrapper {
+      width: 100%;
+      height: 280px;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 25px;
+      background: #0f172a;
+      cursor: pointer; /* Signal click action availability */
+    }
+
+    .work-card-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .work-card:hover .work-card-img-wrapper img {
+      transform: scale(1.04);
+    }
+
+    .work-card-num {
+      font-size: 28px;
+      font-weight: 700;
+      color: #22c55e;
+      margin-bottom: 5px;
+    }
+
+    .work-card-title {
+      font-size: 26px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 8px;
+    }
+
+    .work-card-category {
+      font-size: 14px;
+      color: #22c55e;
+      font-weight: 500;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+
+    .work-card-desc {
+      color: #a1a1aa;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* Navigation Arrows buttons */
+    .carousel-btn {
+      position: absolute;
+      top: 40%;
+      transform: translateY(-50%);
+      background: #18181b;
+      border: 1px solid #27272a;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: 0.3s;
+    }
+
+    .carousel-btn:hover {
+      background: #22c55e;
+      color: #0f172a;
+      border-color: #22c55e;
+    }
+
+    .carousel-btn.left { left: 10px; }
+    .carousel-btn.right { right: 10px; }
+
+    /* Indicator Dots */
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 40px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #27272a;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .dot.active {
+      background: #22c55e;
+      transform: scale(1.2);
+    }
+
+    /* CERTIFICATES SECTION GRAPHICS */
+    .certificates {
+      padding: 100px 10%;
+      background: #0f172a;
+      text-align: center;
+    }
+
+    .certificates-subtitle {
+      display: block;
+      color: #94a3b8;
+      font-size: 15px;
+      margin: 10px auto 50px auto;
+    }
+
+    .certificates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .cert-card {
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 24px;
+      padding: 24px;
+      text-align: left;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease;
+    }
+
+    .cert-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .cert-card-img-wrapper {
+      width: 100%;
+      aspect-ratio: 4 / 3; /* Dynamically manages image size across responsive devices */
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      background: #111115; /* Clean contrasting background fill for paper documents */
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cert-card-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* Guarantees document shapes stay uncropped and clear */
+      transition: transform 0.4s ease;
+    }
+
+    .cert-card-img-wrapper:hover img {
+      transform: scale(1.03);
+    }
+
+    .cert-card-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .cert-card-issuer {
+      font-size: 14px;
+      color: #22c55e;
+      font-weight: 500;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .cert-card-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(34, 197, 94, 0.1);
+      color: #22c55e;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+
+    .cert-card-desc {
+      color: #a1a1aa;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* LIGHTBOX DIALOG OVERLAY GRAPHICS */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.95);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-img-container {
+      max-width: 85%;
+      max-height: 80vh;
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid #27272a;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-img-container img {
+      max-width: 100%;
+      max-height: 80vh;
+      display: block;
+      object-fit: contain;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 25px;
+      right: 35px;
+      background: #18181b;
+      border: 1px solid #27272a;
+      color: white;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+    }
+
+    .modal-close-btn:hover {
+      background: #ef4444;
+      color: white;
+      border-color: #ef4444;
+    }
+
+    /* IMAGE-MATCHED CONTACT SECTION STYLES */
+    .contact {
+      padding: 100px 10%;
+      background: #0b0f19; /* Deep solid black-gray background match */
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+
+    .contact-info {
+      flex: 1;
+      min-width: 300px;
+      text-align: left;
+    }
+
+    .contact-info h2 {
+      font-size: 48px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 25px;
+    }
+
+    .contact-info h2 span {
+      color: #5ef24b; /* Vibrant Neon Green from image */
+    }
+
+    .contact-info .subtitle {
+      color: #94a3b8;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+      max-width: 450px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .info-icon {
+      color: #0fc85f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 4px;
+    }
+
+    .info-text h4 {
+      font-size: 18px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 3px;
+    }
+
+    .info-text p {
+      color: #94a3b8;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .contact-form-container {
+      flex: 1;
+      min-width: 320px;
+      max-width: 550px;
+      background: #141416; /* Clean card overlay wrapper */
+      border: 1px solid #242429;
+      padding: 40px 30px;
+      border-radius: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      color: #94a3b8;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .contact-form-container input,
+    .contact-form-container textarea {
+      width: 100%;
+      padding: 16px;
+      border: 1px solid #222225;
+      outline: none;
+      border-radius: 8px;
+      background: #0b0f19;
+      color: white;
+      font-size: 15px;
+      transition: border-color 0.3s ease;
+    }
+
+    .contact-form-container input:focus,
+    .contact-form-container textarea:focus {
+      border-color: #0c4f4f; /* Input focus state */
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: #0fc85f; /* Exact green pill button setup */
+      color: #0b0f19;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background: #0fc85f;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(94, 242, 75, 0.3);
+    }
+
+    /* MATCHED CUSTOM FOOTER DESIGN */
+    footer {
+      background: #0b0f19; /* Continuous dark backdrop from the reference image */
+      padding: 80px 10% 40px 10%;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      position: relative;
+    }
+
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .footer-headline {
+      font-size: 28px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 35px;
+      line-height: 1.4;
+    }
+
+    .footer-nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 35px;
+      flex-wrap: wrap;
+    }
+
+    .footer-nav a {
+      font-size: 15px;
+      color: #94a3b8;
+      font-weight: 400;
+      transition: color 0.3s ease;
+    }
+
+    .footer-nav a:hover {
+      color: #ffffff;
+    }
+
+    .footer-socials {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 45px;
+    }
+
+    .social-icon {
+      width: 42px;
+      height: 42px;
+      background: #141416;
+      border: 1px solid #242429;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .social-icon:hover {
+      background: #4ed93c;
+      color: #0b0f19;
+      transform: translateY(-3px);
+    }
+
+    .footer-copyright {
+      font-size: 13px;
+      color: #55657e;
+      font-weight: 400;
+    }
+
+    /* Floating / Standard Action Back To Top Button */
+    .scroll-top-btn {
+      position: absolute;
+      right: 5%;
+      bottom: 40px;
+      width: 45px;
+      height: 45px;
+      background: #04a5bb; /* Vibrant toxic neon green match */
+      color: #0b0f19;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(94, 242, 75, 0.2);
+    }
+
+    .scroll-top-btn:hover {
+      transform: translateY(-3px);
+      background: #0debe0;
+    }
+
+
+    /* RESPONSIVE BREAKPOINTS */
+    @media(max-width:900px){
+      .hero{
+        flex-direction:column-reverse;
+        text-align:center;
+      }
+      .hero-text h1{
+        font-size:30px;
+      }
+      .about{
+        flex-direction:column;
+        text-align:center;
+      }
+      nav{
+        flex-direction:column;
+        gap:15px;
+      }
+      .accordion-header {
+        padding: 18px 20px;
+        font-size: 18px;
+      }
+      .accordion-body {
+        padding: 0 20px 20px 20px;
+      }
+      .work-card {
+        min-width: 100%;
+      }
+      .carousel-slider {
+        padding: 0 20px;
+      }
+      .carousel-btn { display: none; }
+      .certificates-grid {
+        grid-template-columns: 1fr;
+      }
+      .modal-close-btn {
+        top: 15px;
+        right: 15px;
+      }
+      .contact {
+        flex-direction: column;
+        padding: 60px 5%;
+      }
+      .contact-form-container {
+        max-width: 100%;
+        width: 100%;
+      }
+      footer {
+        padding: 60px 5% 30px 5%;
+      }
+      .scroll-top-btn {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        margin: 30px auto 0 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Edrianne Paul D. Añosa</div>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#certificates">Certificates</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <h1>Hi, I'm Your <span>Creative Designer</span></h1>
+      <p>
+        I am a passionate Web-Based Designer and Full Stack Developer specializing
+        in creating modern, user-friendly, and functional digital experiences.
+      </p>
+      <a href="#contact" class="btn">Contact me</a>
+    </div>
+    <div class="hero-image">
+      <img src="CRA_6683.JPG" alt="Hero Image">
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <img src="CRA_6683.JPG" alt="About Image">
+    <div class="about-text">
+      <h2 class="title">About <span>Me</span></h2>
+      <p>
+       I am a creative designer passionate about modern visuals, branding, and user-friendly designs. 
+       I enjoy creating clean and engaging layouts using tools like Figma, Canva,
+        and Adobe Photoshop to bring creative ideas to life.
+      </p>
+      <p style="margin-top: 15px;">
+       This portfolio showcases my creative works, design projects, and 
+       visual concepts developed throughout my learning journey. 
+       Feel free to explore my designs and connect with me for collaborations, 
+       creative projects, or internship opportunities.
+      </p>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <h2 class="title">My <span>Services</span></h2>
+    <span class="services-subtitle">Services I offer for school projects, clients, and graduation work — built with care and clean code.</span>
+
+    <div class="accordion-container">
+
+      <div class="accordion-item active">
+        <button class="accordion-header" onclick="toggleAccordion(this)">
+          Creative Designer
+          <span class="accordion-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="accordion-content" style="max-height: 200px;">
+          <div class="accordion-body">
+            <p>I invent, sketch, and prototype exceptional visual concepts for digital platforms and physical media, tailoring ideas perfectly to client requests.</p>
+            <div class="tag-container">
+              <span class="tag">Concept development</span>
+              <span class="tag">Digital art</span>
+              <span class="tag">Branding & identity</span>
+              <span class="tag">Creative direction</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-header" onclick="toggleAccordion(this)">
+          Frontend Dev
+          <span class="accordion-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p>I build fully responsive and interactive websites using semantic HTML, structured CSS layouts, modern JavaScript engines, and lightweight deployment pipelines.</p>
+            <div class="tag-container">
+              <span class="tag">Web development</span>
+              <span class="tag">Responsive design</span>
+              <span class="tag">JavaScript interactions</span>
+              <span class="tag">Clean code</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-header" onclick="toggleAccordion(this)">
+          UI/UX Design
+          <span class="accordion-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p>Engineering clean, intuitive user interfaces and user experience maps using wireframes and high-fidelity clickable prototypes that enhance visitor retention.</p>
+            <div class="tag-container">
+              <span class="tag">Figma prototyping</span>
+              <span class="tag">Wireframing</span>
+              <span class="tag">User journey mapping</span>
+              <span class="tag">Interface styling</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-header" onclick="toggleAccordion(this)">
+          Visual Graphic Designer
+          <span class="accordion-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p>Crafting gorgeous vector artwork, production logos, layouts, and unique brand assets across software systems like Photoshop and Illustrator.</p>
+            <div class="tag-container">
+              <span class="tag">Vector artwork</span>
+              <span class="tag">Photoshop layout</span>
+              <span class="tag">Logo configuration</span>
+              <span class="tag">Asset creation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="work" id="work">
+    <h2 class="title">View My <span>Work</span></h2>
+    <span class="work-subtitle">Auto-slides • Use arrows • Click image to enlarge</span>
+
+    <div class="carousel-slider">
+      <button class="carousel-btn left" onclick="moveSlide(-1)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <button class="carousel-btn right" onclick="moveSlide(1)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+
+      <div class="carousel-track-container">
+        <div class="carousel-track" id="carouselTrack">
+          
+          <div class="work-card">
+            <div class="work-card-img-wrapper" onclick="openModal(this.querySelector('img').src)">
+              <img src="fbb1f74e-7f97-4f94-afec-ad956c8495ae.jpg" alt="Portfolio Content">
+            </div>
+            <div class="work-card-num">01</div>
+            <h3 class="work-card-title">Portfolio — About Me</h3>
+            <span class="work-card-category">Portfolio</span>
+            <p class="work-card-desc">I am a passionate Web-Based Designer and Full Stack Developer specializing in creating modern, user-friendly, and functional digital experiences.</p>
+          </div>
+
+          <div class="work-card">
+            <div class="work-card-img-wrapper" onclick="openModal(this.querySelector('img').src)">
+              <img src="art.png" alt="MabuhighTrack Layout">
+            </div>
+            <div class="work-card-num">02</div>
+            <h3 class="work-card-title">brochure</h3>
+            <span class="work-card-category">School brochure</span>
+            <p class="work-card-desc">Explore smarter theological learning in one platform. Access NLP-powered search and digital resources anytime.</p>
+          </div>
+
+          <div class="work-card">
+            <div class="work-card-img-wrapper" onclick="openModal(this.querySelector('img').src)">
+              <img src="art2.jpg" alt="MabuhighTrack Management">
+            </div>
+            <div class="work-card-num">03</div>
+            <h3 class="work-card-title">Login Page</h3>
+            <span class="work-card-category">School System</span>
+            <p class="work-card-desc">The EMC Login Page allows users to securely access the EMC Learning Management System (LMS). It serves as the main entry point for students, faculty, and administrators to use the platform’s learning and library features.</p>
+          </div>
+
+           <div class="work-card">
+            <div class="work-card-img-wrapper" onclick="openModal(this.querySelector('img').src)">
+              <img src="b1.jpg" alt="MabuhighTrack Management">
+            </div>
+            <div class="work-card-num">04</div>
+            <h3 class="work-card-title">Admin Dashboard</h3>
+            <span class="work-card-category">School System</span>
+            <p class="work-card-desc">Displays the overall system administration overview, including user activities, platform analytics, recent system updates, and management summaries 
+              for courses, instructors, students, and reports.</p>
+          </div>
+          <div class="work-card">
+            <div class="work-card-img-wrapper" onclick="openModal(this.querySelector('img').src)">
+              <img src="art0.jpg" alt="MabuhighTrack Management">
+            </div>
+            <div class="work-card-num">05</div>
+            <h3 class="work-card-title">Instructor Dashboard</h3>
+            <span class="work-card-category">School System</span>
+            <p class="work-card-desc">Displays the overview of instructor activities. Shows engagement analytics, recent submissions, and course summaries.</p>
+          </div>
+          <div class="work-card">
+            <div class="work-card-img-wrapper" onclick="openModal(this.querySelector('img').src)">
+              <img src="b2.jpg" alt="MabuhighTrack Management">
+            </div>
+            <div class="work-card-num">06</div>
+            <h3 class="work-card-title">Librarian Dashboard</h3>
+            <span class="work-card-category">School System</span>
+            <p class="work-card-desc">Manages library operations including book inventory, borrowing and returning records, user requests, and library resource tracking. Provides an overview of
+               book availability, circulation activity, and library reports..</p>
+          </div>
+          <div class="work-card">
+            <div class="work-card-img-wrapper" onclick="openModal(this.querySelector('img').src)">
+              <img src="b3.jpg" alt="MabuhighTrack Management">
+            </div>
+            <div class="work-card-num">07</div>
+            <h3 class="work-card-title">Student Dashboard</h3>
+            <span class="work-card-category">School System</span>
+            <p class="work-card-desc">Displays student learning activities including enrolled courses, assignments, grades, announcements, and submission history. Allows students to track their academic progress and access learning materials.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="carousel-dots" id="carouselDots">
+        <div class="dot active" onclick="currentSlide(0)"></div>
+        <div class="dot" onclick="currentSlide(1)"></div>
+        <div class="dot" onclick="currentSlide(2)"></div>
+        <div class="dot" onclick="currentSlide(3)"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="certificates" id="certificates">
+    <h2 class="title">My <span>Certificates</span></h2>
+    <span class="certificates-subtitle">Click a certificate to view full size</span>
+
+    <div class="certificates-grid">
+      
+      <div class="cert-card">
+        <div class="cert-card-img-wrapper" onclick="openModal(this.querySelector('img').src)">
+          <img src="b4.jpg" alt="Ethical Hacker Certificate">
+        </div>
+        <h3 class="cert-card-title">Instruments International</h3>
+        <span class="cert-card-issuer">User Experience Questionnaire Instruments</span>
+        <div class="cert-card-date">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:2px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          24 April 2026
+        </div>
+        <p class="cert-card-desc">For the Participation in the International Course Session "User Experience Questionnaire Instruments" Organized by Universitas Trilogi 24 April 2026</p>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-card-img-wrapper" onclick="openModal(this.querySelector('img').src)">
+          <img src="b5.jpg" alt="Information Technology Specialist">
+        </div>
+        <h3 class="cert-card-title">Journey from Science Practitioner to Information Technology Specialist</h3>
+        <span class="cert-card-issuer">Information Technology</span>
+        <div class="cert-card-date">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:2px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          08 October 2025 
+        </div>
+        <p class="cert-card-desc">“Journey from Science Practitioner to Information Technology Specialist” held on October 8, 2025, via Microsoft Teams (Virtual Session).</p>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-card-img-wrapper" onclick="openModal(this.querySelector('img').src)">
+          <img src="b6.jpg" alt="Computer Systems Servicing NC II Certificate">
+        </div>
+        <h3 class="cert-card-title">The Power of Color in Graphic Design: Theory, Psychology, and Practice”</h3>
+        <span class="cert-card-issuer">Information Technology</span>
+        <div class="cert-card-date">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:2px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          05 November 2025 
+        </div>
+        <p class="cert-card-desc">“The Power of Color in Graphic Design: Theory, Psychology, and Practice” held on November 5, 2025, at Davao del Norte State College Gymnasium.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="modal-overlay" id="imageModal" onclick="closeModal(event)">
+    <button class="modal-close-btn" onclick="closeModal(event)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <div class="modal-img-container">
+      <img src="" id="modalPreviewImage" alt="Enlarged Project Work View">
+    </div>
+  </div>
+
+  <section class="contact" id="contact">
+    <div class="contact-info">
+      <h2>Contact <span>Me</span></h2>
+      <p class="subtitle">Open to internships, school collaborations, and project inquiries. Send a message and I'll get back to you soon.</p>
+      
+      <div class="info-item">
+        <div class="info-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        </div>
+        <div class="info-text">
+          <h4>Email</h4>
+          <p>edrianeanosa@gmail.com</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        </div>
+        <div class="info-text">
+          <h4>Phone</h4>
+          <p>09386004054</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        </div>
+        <div class="info-text">
+          <h4>Location</h4>
+          <p>Barangay Gredu Crystal Plain Subdivition Panabo City, Davao del Norte</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form-container">
+      <form>
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" placeholder="Name">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea rows="5" placeholder="Message"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <h3 class="footer-headline">Collaborate with  Edrianne Paul D. Añosa and<br>start your web project today.</h3>
+      
+      <div class="footer-nav">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#certificates">Certificates</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Skills</a>
+      </div>
+
+      <div class="footer-socials">
+        <a href="https://www.facebook.com/" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/anosa_y4n/" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://github.com/" class="social-icon" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/" class="social-icon" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+
+      <p class="footer-copyright">&copy; 2026 Edrianne Paul D. Añosa. All rights reserved.</p>
+    </div>
+
+    <button class="scroll-top-btn" onclick="window.scrollTo(0,0)">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+  </footer>
+
+  <script>
+    function toggleAccordion(element) {
+      const item = element.parentElement;
+      const content = item.querySelector('.accordion-content');
+      const allItems = document.querySelectorAll('.accordion-item');
+      
+      allItems.forEach(i => {
+        if (i !== item) {
+          i.classList.remove('active');
+          i.querySelector('.accordion-content').style.maxHeight = null;
+        }
+      });
+
+      item.classList.toggle('active');
+      if (item.classList.contains('active')) {
+        content.style.maxHeight = content.scrollHeight + "px";
+      } else {
+        content.style.maxHeight = null;
+      }
+    }
+
+    let currentIndex = 0;
+    function moveSlide(direction) {
+      const track = document.getElementById('carouselTrack');
+      const cards = document.querySelectorAll('.work-card');
+      const dots = document.querySelectorAll('.dot');
+      const maxIndex = cards.length - 2; // Adjust based on columns visible
+
+      currentIndex += direction;
+      if (currentIndex < 0) currentIndex = 0;
+      if (currentIndex > maxIndex) currentIndex = maxIndex;
+
+      const cardWidth = cards[0].offsetWidth + 30; // Card width + gap
+      track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentIndex);
+      });
+    }
+
+    function currentSlide(index) {
+      const cards = document.querySelectorAll('.work-card');
+      const maxIndex = cards.length - 2;
+      currentIndex = index > maxIndex ? maxIndex : index;
+      moveSlide(0);
+    }
+
+    function openModal(src) {
+      const modal = document.getElementById('imageModal');
+      const img = document.getElementById('modalPreviewImage');
+      modal.classList.add('open');
+      img.src = src;
+    }
+
+    function closeModal(event) {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('open');
+    }
+  </script>
+</body>
+</html>
